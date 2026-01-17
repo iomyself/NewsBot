@@ -137,6 +137,7 @@ def fetch_rss_items(url, source_name, config, failed_log=None):
 import json
 import os
 import time
+from data_manager import save_data
 
 def load_config():
     try:
@@ -352,6 +353,12 @@ def main():
                 push_errors_to_feishu(token, err_token, feishu_conf['error_table_id'], failed_feeds)
     else:
         print("Feishu config missing. Skipping upload.")
+
+    # Save to Local JSON Database (for Web Display)
+    if collected_records:
+        print("-" * 40)
+        print("Updating Local Database...")
+        save_data(collected_records)
 
     print("Done.")
 
