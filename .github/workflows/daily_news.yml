@@ -1,0 +1,37 @@
+name: Daily News Fetcher
+
+on:
+  schedule:
+    # Runs at 00:00 UTC every day (08:00 Beijing Time)
+    - cron: '0 0 * * *'
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  fetch_and_push:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.14' # or 3.11/3.12 if 3.14 is not available on runner
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install feedparser requests
+        
+    - name: Run Fetch Script
+      env:
+        # Inject Secrets as Environment Variables
+        FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+        FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+        FEISHU_APP_TOKEN: ${{ secrets.FEISHU_APP_TOKEN }}
+        FEISHU_TABLE_ID: ${{ secrets.FEISHU_TABLE_ID }}
+        FEISHU_ERROR_TABLE_ID: ${{ secrets.FEISHU_ERROR_TABLE_ID }}
+        FEISHU_ERROR_APP_TOKEN: ${{ secrets.FEISHU_ERROR_APP_TOKEN }}
+      run: python fetch_news.py
