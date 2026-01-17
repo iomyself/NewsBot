@@ -2,14 +2,17 @@ import feedparser
 import requests
 import re
 
+from datetime import datetime, timezone, timedelta
+
 def clean_html(raw_html):
     # Retrieve text from HTML
     cleanr = re.compile('<.*?>')
     cleantext = re.sub(cleanr, '', raw_html)
     return cleantext.strip()
 
-def fetch_rss_items(url, source_name, failed_log=None):
+def fetch_rss_items(url, source_name, config, failed_log=None):
     # Returns a list of dicts: [{'title':..., 'link':...}, ...]
+    # config: dict containing 'filter_keywords' and 'max_lookback_hours'
     # failed_log: list to append error dicts to
     print(f"Fetching news from {source_name}...")
     items = [] # Renamed to 'items' to match the function's return, 'news_items' in snippet
@@ -43,23 +46,55 @@ def fetch_rss_items(url, source_name, failed_log=None):
             title = entry.get('title', 'No Title') # Use .get for safety
             link = entry.get('link', 'No Link')   # Use .get for safety
 
+            title = entry.get('title', 'No Title') # Use .get for safety
+            link = entry.get('link', 'No Link')   # Use .get for safety
+
             # Keyword Filter
-            if not any(kw in title for kw in KEYWORDS):
+            keywords = config.get('filter_keywords', [])
+            if not any(kw in title for kw in keywords):
                 skipped += 1
                 continue
 
-            # Parse Date
-            published = ""
-            if hasattr(entry, 'published'):
-                published = entry.published
-            elif hasattr(entry, 'updated'):
-                published = entry.updated
-
-            # Simple date formatting attempt (take first 10 chars if looks like YYYY-MM-DD)
-            # If parsing fails, default to today
+            # Date Filtering (Time Range)
+            # Use feedparser's parsed time (struct_time) if available
+            published_time = None
+            if hasattr(entry, 'published_parsed') and entry.published_parsed:
+                published_time = entry.published_parsed
+            elif hasattr(entry, 'updated_parsed') and entry.updated_parsed:
+                published_time = entry.updated_parsed
+            
+            # Default date string for Feishu
             date_str = time.strftime('%Y-%m-%d')
-            if len(published) >= 10 and published[0:4].isdigit():
-                 date_str = published[0:10] # Very naive, but works for most standard feeds
+            
+            if published_time:
+                # Convert struct_time to datetime (UTC)
+                try:
+                    dt_object = datetime(*published_time[:6], tzinfo=timezone.utc)
+                    
+                    # Update date_str from the actual parsed date
+                    date_str = dt_object.strftime('%Y-%m-%d')
+
+                    # Check Time Range
+                    max_hours = config.get('max_lookback_hours', 24)
+                    # Simple comparison: Current UTC time - published time
+                    now = datetime.now(timezone.utc)
+                    if (now - dt_object) > timedelta(hours=max_hours):
+                        # Item is too old
+                        continue
+                except Exception as e:
+                    print(f"   [Date Warning] Failed to parse/compare date for '{title}': {e}. Keeping it.")
+            else:
+                # Fallback for naive string parsing if struct_time is missing (rare for standard RSS)
+                # We keep the old logic just as a backup for 'date_str', but can't strictly filter by hours comfortably.
+                published = ""
+                if hasattr(entry, 'published'):
+                    published = entry.published
+                elif hasattr(entry, 'updated'):
+                    published = entry.updated
+                
+                if len(published) >= 10 and published[0:4].isdigit():
+                    date_str = published[0:10]
+
 
             # Description/Summary
             description = ""
@@ -114,8 +149,20 @@ def load_config():
         print("Error: Failed to decode rss_config.json.")
         return []
 
-# Filter Keywords
-KEYWORDS = ["存款", "理财", "经济"]
+def load_app_config():
+    default_config = {
+        "filter_keywords": ["存款", "理财", "经济"],
+        "max_lookback_hours": 24
+    }
+    try:
+        if os.path.exists('app_config.json'):
+            with open('app_config.json', 'r', encoding='utf-8') as f:
+                return json.load(f)
+    except Exception as e:
+        print(f"Error loading app_config.json: {e}. Using defaults.")
+    
+    return default_config
+
 
 def get_feishu_config():
     # Try Env Vars first (for GitHub Actions)
@@ -277,10 +324,14 @@ def main():
         print("No RSS sources loaded. Exiting.")
         return
 
+    # Load App Config
+    app_config = load_app_config()
+    print(f"Loaded config: Keywords={app_config.get('filter_keywords')}, Max Hours={app_config.get('max_lookback_hours')}")
+
     # rss_sources is a dict: {"Name": "URL", ...}
     for name, url in rss_sources.items():
         if url:
-            items = fetch_rss_items(url, name, failed_feeds)
+            items = fetch_rss_items(url, name, app_config, failed_feeds)
             if items:
                 collected_records.extend(items)
         else:

@@ -34,37 +34,7 @@
 <outline text="腾讯新闻 / 国际" title="腾讯新闻 / 国际" type="rss" xmlUrl="https://plink.anyfeeder.com/qq/news/world"  />
 <outline text="腾讯新闻 / 国内" title="腾讯新闻 / 国内" type="rss" xmlUrl="https://plink.anyfeeder.com/qq/news/china"  />
 <outline text="界面新闻: 新闻" title="界面新闻: 新闻" type="rss" xmlUrl="https://plink.anyfeeder.com/jiemian/news"  />
-</outline>
-<outline text="科技" title="科技">
-<outline text="Solidot" title="Solidot" type="rss" xmlUrl="https://www.solidot.org/index.rss"  />
-<outline text="数字尾巴" title="数字尾巴" type="rss" xmlUrl="https://plink.anyfeeder.com/dgtle"  />
-<outline text="36氪" title="36氪" type="rss" xmlUrl="https://plink.anyfeeder.com/36kr"  />
-<outline text="cnBeta" title="cnBeta" type="rss" xmlUrl="https://plink.anyfeeder.com/cnbeta"  />
-<outline text="IT 之家" title="IT 之家" type="rss" xmlUrl="https://plink.anyfeeder.com/ithome/it"  />
-<outline text="MIT 科技评论 / 本周热榜" title="MIT 科技评论 / 本周热榜" type="rss" xmlUrl="https://plink.anyfeeder.com/mittrchina/hot"  />
-<outline text="Readhub / 热门话题" title="Readhub / 热门话题" type="rss" xmlUrl="https://plink.anyfeeder.com/readhub/topic"  />
-<outline text="Readhub / 每日早报" title="Readhub / 每日早报" type="rss" xmlUrl="https://plink.anyfeeder.com/readhub/daily"  />
-<outline text="Readhub / 区块链快讯" title="Readhub / 区块链快讯" type="rss" xmlUrl="https://plink.anyfeeder.com/readhub/blockchain"  />
-<outline text="爱范儿" title="爱范儿" type="rss" xmlUrl="https://plink.anyfeeder.com/ifanr"  />
-<outline text="果壳网 / 科学人" title="果壳网 / 科学人" type="rss" xmlUrl="https://plink.anyfeeder.com/guokr/scientific"  />
-<outline text="虎嗅" title="虎嗅" type="rss" xmlUrl="https://plink.anyfeeder.com/huxiu"  />
-<outline text="机核" title="机核" type="rss" xmlUrl="https://plink.anyfeeder.com/gcores"  />
-<outline text="快科技" title="快科技" type="rss" xmlUrl="https://plink.anyfeeder.com/mydrivers"  />
-<outline text="雷峰网" title="雷峰网" type="rss" xmlUrl="https://plink.anyfeeder.com/leiphone"  />
-<outline text="软餐 - 新鲜软件资讯" title="软餐 - 新鲜软件资讯" type="rss" xmlUrl="https://plink.anyfeeder.com/ruancan"  />
-<outline text="少数派" title="少数派" type="rss" xmlUrl="https://plink.anyfeeder.com/sspai"  />
-<outline text="少数派 / Matrix" title="少数派 / Matrix" type="rss" xmlUrl="https://plink.anyfeeder.com/ssapi/matrix"  />
-<outline text="新浪专栏 / 创事记" title="新浪专栏 / 创事记" type="rss" xmlUrl="https://plink.anyfeeder.com/sina/csj"  />
-<outline text="极客公园" title="极客公园" type="rss" xmlUrl="https://plink.anyfeeder.com/geekpark"  />
-<outline text="小众软件" title="小众软件" type="rss" xmlUrl="https://plink.anyfeeder.com/appinn"  />
-<outline text="超能网" title="超能网" type="rss" xmlUrl="https://plink.anyfeeder.com/expreview"  />
-<outline text="钛媒体" title="钛媒体" type="rss" xmlUrl="https://plink.anyfeeder.com/tmtpost"  />
-<outline text="猎云网" title="猎云网" type="rss" xmlUrl="https://plink.anyfeeder.com/lieyunwang"  />
-<outline text="品玩" title="品玩" type="rss" xmlUrl="https://plink.anyfeeder.com/pingwest"  />
-<outline text="湾区日报" title="湾区日报" type="rss" xmlUrl="https://wanqu.co/feed/"  />
-<outline text="晚晴幽草轩" title="晚晴幽草轩" type="rss" xmlUrl="https://www.jeffjade.com/atom.xml"  />
-<outline text="阮一峰的网络日志" title="阮一峰的网络日志" type="rss" xmlUrl="https://www.ruanyifeng.com/blog/atom.xml"  />
-</outline>
+
 <outline text="知识" title="知识">
 <outline text="知乎日报" title="知乎日报" type="rss" xmlUrl="https://plink.anyfeeder.com/zhihu/daily"  />
 <outline text="知乎每日精选" title="知乎每日精选" type="rss" xmlUrl="http://www.zhihu.com/rss"  />
@@ -72,7 +42,7 @@
 <outline text="简书: 热门" title="简书: 热门" type="rss" xmlUrl="https://plink.anyfeeder.com/jianshu/trending/weekly"  />
 <outline text="知乎热榜" title="知乎热榜" type="rss" xmlUrl="https://plink.anyfeeder.com/zhihu/hotlist"  />
 <outline text="人人都是产品经理" title="人人都是产品经理" type="rss" xmlUrl="https://plink.anyfeeder.com/woshipm/popular"  />
-<outline text="维基百科优良条目" title="维基百科优良条目" type="rss" xmlUrl="https://zh.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=good&amp;feedformat=atom"  />
+
 <outline text="BBC 英语教学" title="BBC 英语教学" type="rss" xmlUrl="https://plink.anyfeeder.com/bbc/learningenglish"  />
 <outline text="观止·每日一文" title="观止·每日一文" type="rss" xmlUrl="https://plink.anyfeeder.com/meiriyiwen"  />
 </outline>
