@@ -46,5 +46,9 @@ jobs:
         git add data/news_db.json
         # Only commit if there are changes
         git commit -m "Update news database" || echo "No changes to commit"
+        
+        # Pull latest changes to avoid conflicts (rebase strategy)
+        git pull --rebase origin main
+        
         git push
 
